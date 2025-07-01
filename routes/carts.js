@@ -16,7 +16,10 @@ router.post("/trips", (req, res) => {
   if (departureDate > now) {
     return res.json({ result: false });
   } else {
-    newCart.save().then(() => res.json({ result: true }));
+    newCart
+      .save()
+      .then((data) => data.populate("trips"))
+      .then((data) => res.json({ ajout: data, result: true }));
   }
 });
 
