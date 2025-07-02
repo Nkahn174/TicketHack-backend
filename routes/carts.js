@@ -6,10 +6,10 @@ const Cart = require("../models/carts");
 const Trip = require("../models/trips");
 
 router.post("/trips", (req, res) => {
-  Trip.findById(req.body.id).then(trip => {
+  Trip.findById(req.body.id).then((trip) => {
     const now = moment();
     const tripDate = moment(trip.date);
-    if(tripDate.isAfter(now)) {
+    if (tripDate.isAfter(now)) {
       const newCart = new Cart({
         trips: req.body.id,
         booking: false,
@@ -38,17 +38,24 @@ router.delete("/trips", (req, res) => {
   .then(() => res.json({ result: true }));
 });
 
-
 router.get("/booking/trips", (req, res) => {
-  Cart.find({ booking: true }).populate('trips').then((data) => {
-    if (data.length > 0) {
-      res.json({ booked: data, result: true });
-    } else {
-      res.json({ result: false });
-    }
-  });
+  Cart.find({ booking: true })
+    .populate("trips")
+    .then((data) => {
+      if (data.length > 0) {
+        res.json({ booked: data, result: true });
+      } else {
+        res.json({ result: false });
+      }
+    });
 });
 
+router.put("/booking/trips/:id", (req, res) => {
+  Cart.findByIdAndUpdate(
+    { _id: req.params.id },
+    { $set: { booking: true } }
+  ).then(() => res.json({ result: true }));
+});
 
 module.exports = router;
 
