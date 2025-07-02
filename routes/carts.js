@@ -34,6 +34,7 @@ router.get("/trips", (req, res) => {
 });
 
 router.delete("/trips", (req, res) => {
+  console.log(req.body.id);
   Cart.deleteOne({ _id: req.body.id })
   .then(() => res.json({ result: true }));
 });
