@@ -34,7 +34,8 @@ router.get("/trips", (req, res) => {
 });
 
 router.delete("/trips", (req, res) => {
-  Cart.deleteOne({ trips: req.body.id }).then(() => res.json({ result: true }));
+  Cart.deleteOne({ _id: req.body.id })
+  .then(() => res.json({ result: true }));
 });
 
 
@@ -50,16 +51,4 @@ router.get("/booking/trips", (req, res) => {
 
 
 module.exports = router;
-// router.post('/:userId/tickets', async (req, res) => {
-// try {
-// const { ticketId } = req.body;
-// const user = await User.findByIdAndUpdate(
-// req.params.userId,
-// { $push: { tickets: ticketId } },
-// { new: true }
-// );
-// res.json(user);
-// } catch (err) {
-// res.status(500).json({ error: err.message });
-// }
-// });
+
