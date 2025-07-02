@@ -7,7 +7,7 @@ const Trip = require("../models/trips");
 router.post("/", (req, res) => {
   
   const { departure, arrival, date } = req.body;
-
+  console.log(date)
   Trip.find({
     departure : {$regex: departure, $options: 'i'},
     arrival : {$regex: arrival, $options: 'i'},
