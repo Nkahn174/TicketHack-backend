@@ -24,13 +24,15 @@ router.post("/trips", (req, res) => {
 });
 
 router.get("/trips", (req, res) => {
-  Cart.find({}).then((data) => {
-    if (data.length > 0) {
-      res.json({ cart: data, result: true });
-    } else {
-      res.json({ result: false });
-    }
-  });
+  Cart.find()
+    .populate("trips")
+    .then((data) => {
+      if (data.length > 0) {
+        res.json({ cart: data, result: true });
+      } else {
+        res.json({ result: false });
+      }
+    });
 });
 
 router.delete("/trips", (req, res) => {
