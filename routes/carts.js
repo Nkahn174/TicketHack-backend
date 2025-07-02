@@ -38,7 +38,7 @@ router.get("/trips", (req, res) => {
 router.delete("/trips", (req, res) => {
   Cart.deleteOne({ trips: req.body.id }).then(() => res.json({ result: true }));
 });
-module.exports = router;
+
 
 router.get("/booking/trips", (req, res) => {
   Cart.find({ booking: true }).then((data) => {
@@ -50,6 +50,8 @@ router.get("/booking/trips", (req, res) => {
   });
 });
 
+
+module.exports = router;
 // router.post('/:userId/tickets', async (req, res) => {
 // try {
 // const { ticketId } = req.body;
